@@ -16,7 +16,18 @@ public class StringCalculatorTest {
     
     @Test
     public void add(){
-        assertEquals(10, stringCalculator.repeatOpr("+","1,5:4"));
+        assertEquals(10, stringCalculator.add("1,5:4"));
+        //assertEquals(new String[]{"1"}, "1".split(","));
+        //assertEquals(10, stringCalculator.repeatOpr("+","1,5:4"));
+
         System.out.println("add");
     }
+
+    @Test(expected = RuntimeException.class)
+    public void add_negative() throws Exception{
+        stringCalculator.add("-1,5:4");
+
+        System.out.println("add_negative");
+    }
+    
 }

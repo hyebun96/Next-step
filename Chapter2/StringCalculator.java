@@ -2,45 +2,61 @@ package Chapter2;
 
 public class StringCalculator {
 
-    int repeatOpr(String opr, String text){
-        int hap = 0;
+    // 계산기 합
+    public int add(String text){
 
+       if(isblank(text)){
+           return 0;
+       }
+       
+        return sum(textSplit(text));
+    }
+
+    //  text null 검사
+    private boolean isblank(String text){
+        
         if(text==null || text.isEmpty() ){
-            return 0;
+            return true;
         }
-
+        
+        return false;
+    }
+    
+    // split
+    private int[] textSplit(String text){
+        
         String numbers[] = text.split(",|:");
+        
+        return stringToInt(numbers);
+    }
 
-        for(String i : numbers){
+    // String -> Int
+    private int[] stringToInt(String[] numbers){
+        int[] values = new int[numbers.length];
+
+        for(int i = 0; i<numbers.length; i++){
+            values[i] = toPositive(numbers[i]);
             
-            if(opr.equals("+")){
-                hap = add(hap, Integer.parseInt(i));
-            }else if(opr.equals("-")){
-                hap = subtract(hap, Integer.parseInt(i));
-            }else if(opr.equals("*")){
-                hap = multiply(hap, Integer.parseInt(i));
-            }else if(opr.equals("/")){
-                hap = divide(hap, Integer.parseInt(i));
-            }
+        }
+        return values;
+    }
+
+    // sum
+    private int sum(int[] numbers){
+        int hap = 0 ;
+
+        for(int i: numbers){
+            hap += i;
         }
 
-        System.out.println(hap);
         return hap;
     }
 
-    int add(int i, int j){
-        return i + j;
-    }
-    
-    int subtract(int i, int j){
-        return i - j;
-    }
-
-    int multiply(int i, int j){
-        return i * j;
-    }
-
-    int divide(int i, int j){
-        return i / j;
+    private int toPositive(String value){
+        int number = Integer.parseInt(value);
+        if(number < 0  ){
+            throw new RuntimeException();
+        }
+        return number;
     }
 }
